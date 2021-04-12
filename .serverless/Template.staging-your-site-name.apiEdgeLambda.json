@@ -1,10 +1,10 @@
 {
   "name": "stage-api-test-1",
-  "hash": "SeRXQok2opyLQSDBqq+74AW23+KpfTlUuG56U0AxB0g=",
+  "hash": "VJCZ8AD/E2+e2VsnVtvjsZRiR7U2PKhW1HT4R/XZ9Dk=",
   "description": "test-1 (API)",
   "memory": 128,
   "timeout": 10,
-  "code": "D:\\Code\\latest\\templates\\next-mong-test1\\.serverless_nextjs\\api-lambda",
+  "code": "D:\\Code\\latest\\simple-really\\next-mong-test\\.serverless_nextjs\\api-lambda",
   "shims": [],
   "handler": "index.handler",
   "runtime": "nodejs12.x",
