@@ -1,0 +1,17 @@
+{
+  "name": "stage-default-test-1",
+  "hash": "br9g/QIncKds69Jrp8f96wwnf3vs6skYwy1h8afIWxs=",
+  "description": "test-1",
+  "memory": 128,
+  "timeout": 10,
+  "code": "D:\\Code\\latest\\templates\\next-mong-test1\\.serverless_nextjs\\default-lambda",
+  "shims": [],
+  "handler": "index.handler",
+  "runtime": "nodejs12.x",
+  "env": {},
+  "role": {
+    "arn": "arn:aws:iam::919759177803:role/h31g2ws-53nzb5"
+  },
+  "arn": "arn:aws:lambda:us-east-1:919759177803:function:stage-default-test-1",
+  "region": "us-east-1"
+}

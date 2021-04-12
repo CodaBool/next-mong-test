@@ -1,0 +1,13 @@
+name: test-1
+staging-your-site-name:
+  component: '@sls-next/serverless-component@1.18.0'
+  inputs:
+    memory: 128
+    bucketName: codabool-stage-test-1
+    bucketRegion: us-east-1
+    description: 'test-1'
+    name: 
+      defaultLambda: stage-default-test-1
+      apiLambda: stage-api-test-1
+    # domain: ['staging-your-site-name', 'a-domain']
+    publicDirectoryCache: false
