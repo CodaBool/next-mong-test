@@ -11,3 +11,7 @@ staging-your-site-name:
       apiLambda: stage-api-test-1
     # domain: ['staging-your-site-name', 'a-domain']
     publicDirectoryCache: false
+    useDotenv: true
+    build:
+      env:
+        MONGODB_URI: ${MONGODB_URI}
