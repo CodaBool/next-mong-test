@@ -27,6 +27,9 @@ jobs:
 
       - name: Deploy to AWS
         run: npx serverless
+        env:
+          MONGODB_URI: ${{ secrets.MONGODB_URI }}
+          TEST_ENV: ${{ secrets.TEST_ENV }}
 
       - name: Upload `.serverless` state to S3
         run: aws s3 sync .serverless s3://codabool-sls-state/your-site-name/staging/.serverless --delete
