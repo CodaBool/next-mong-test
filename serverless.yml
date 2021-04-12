@@ -14,4 +14,5 @@ staging-your-site-name:
     useDotenv: true
     build:
       env:
-        MONGODB_URI: ${MONGODB_URI}
+        MONGODB_URI: ${env.MONGODB_URI}
+        TEST_ENV: ${env.TEST_ENV}
