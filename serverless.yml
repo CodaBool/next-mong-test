@@ -22,7 +22,7 @@
 #         NEXT_PUBLIC_STAGE: ${env.STAGE}
 
 
-stage: ${env.NEXT_PUBLIC_STAGE}
+stage: ${env.STAGE}
 name: next-mon
 
 staging-your-site-name:
