@@ -13,6 +13,7 @@ jobs:
       # The repo name must be validated since it will be used in the S3 Bucket creation when saving Serverless state
       - name: Extract Pipline Vars
         run: |
+          echo "testing repo name = " ${GITHUB_REPOSITORY#CodaBool/}
           if [[ ${GITHUB_REPOSITORY#CodaBool/} =~ (?=^.{3,63}$)(?!^(\d+\.)+\d+$)(^(([a-z0-9]|[a-z0-9][a-z0-9\-]*[a-z0-9])\.)*([a-z0-9]|[a-z0-9][a-z0-9\-]*[a-z0-9])$) ]]; then 
             echo "valid S3 Bucket name "${GITHUB_REPOSITORY#CodaBool/}
             echo "##[set-output name=repo;]${GITHUB_REPOSITORY#CodaBool/}"
