@@ -14,7 +14,6 @@ build/
 
 # local env files
 .env
-.env.local
 
 # Junk
 junk*

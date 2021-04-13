@@ -3,5 +3,6 @@ module.exports = {
   env: {
     MONGODB_URI: process.env.MONGODB_URI,
     TEST_ENV: process.env.TEST_ENV,
+    STAGE: process.env.STAGE
   }
 };

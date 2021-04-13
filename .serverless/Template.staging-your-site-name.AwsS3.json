@@ -1,6 +1,0 @@
-{
-  "name": "codabool-stage-test-1",
-  "region": "us-east-1",
-  "accelerated": true,
-  "url": "https://codabool-stage-test-1.s3.amazonaws.com"
-}

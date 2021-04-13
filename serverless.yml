@@ -1,18 +1,24 @@
-name: test-1
+stage: ${env.STAGE}
 staging-your-site-name:
   component: '@sls-next/serverless-component@1.18.0'
   inputs:
     memory: 128
-    bucketName: codabool-stage-test-1
     bucketRegion: us-east-1
-    description: 'test-1'
+    bucketName: codabool-stage-test-1
     name: 
-      defaultLambda: stage-default-test-1
-      apiLambda: stage-api-test-1
+      defaultLambda: 
+        - "${stage}-"
+        - defaut
+      apiLambda:
+        - "${stage}-"
+        - api
     # domain: ['staging-your-site-name', 'a-domain']
+    domain:
+      - "${stage}-test"
+      - codadash.com
     publicDirectoryCache: false
-    useDotenv: true
     build:
       env:
         MONGODB_URI: ${env.MONGODB_URI}
         TEST_ENV: ${env.TEST_ENV}
+        STAGE: ${env.STAGE}
