@@ -8,37 +8,45 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Extract Pipline Vars 
+      # The stage is extracted from the branch name, since deploys are only ran on dev and prod branch
+      # WARNING: if deployments are done differently then this needs to be edited (hardcoded or from github event context)
+      - name: Extract Pipline Vars
         run: |
-          echo "##[set-output name=stage;]${GITHUB_REF#refs/heads/}"
+          
+          if [[ ${GITHUB_REF#refs/heads/} =~ (?=^.{3,63}$)(?!^(\d+\.)+\d+$)(^(([a-z0-9]|[a-z0-9][a-z0-9\-]*[a-z0-9])\.)*([a-z0-9]|[a-z0-9][a-z0-9\-]*[a-z0-9])$) ]]; then 
+            echo "valid S3 Bucket name "${GITHUB_REF#refs/heads/}
+            echo "##[set-output name=stage;]${GITHUB_REF#refs/heads/}"
+          else 
+            echo "Invalid S3 Bucket" 
+          fi
           echo "##[set-output name=repo;]${GITHUB_REPOSITORY#CodaBool/}"
         id: extract # ${{ steps.extract.outputs.stage }}
         
-      - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: us-east-1
+      # - name: Configure AWS Credentials
+      #   uses: aws-actions/configure-aws-credentials@v1
+      #   with:
+      #     aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      #     aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      #     aws-region: us-east-1
 
-      - uses: actions/setup-node@v2-beta
-        with:
-          node-version: '12'
+      # - uses: actions/setup-node@v2-beta
+      #   with:
+      #     node-version: '12'
 
-      - name: Install dependencies
-        run: npm ci
+      # - name: Install dependencies
+      #   run: npm ci
 
-      - name: Serverless AWS authentication
-        run: npx serverless --component=serverless-next config credentials --provider aws --key ${{ secrets.AWS_ACCESS_KEY_ID }} --secret ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      # - name: Serverless AWS authentication
+      #   run: npx serverless --component=serverless-next config credentials --provider aws --key ${{ secrets.AWS_ACCESS_KEY_ID }} --secret ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
       # - name: Download `.serverless` state from S3
-      #   run: aws s3 sync s3://${{ steps.extract.outputs.repo }}/${{ steps.extract.outputs.stage }}/.serverless .serverless --delete 
+      #   run: aws s3 sync s3://sls-state/${{ steps.extract.outputs.repo }}/${{ steps.extract.outputs.stage }}/.serverless .serverless --delete 
 
-      - name: Deploy to AWS
-        run: npx serverless
-        env:
-          MONGODB_URI: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          NEXT_PUBLIC_STAGE: ${{ steps.extract.outputs.stage }}
+      # - name: Deploy to AWS
+      #   run: npx serverless
+      #   env:
+      #     MONGODB_URI: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      #     NEXT_PUBLIC_STAGE: ${{ steps.extract.outputs.stage }}
 
-      - name: Upload `.serverless` state to S3
-        run: aws s3 sync .serverless s3://${{ steps.extract.outputs.repo }}/${{ steps.extract.outputs.stage }}/.serverless --delete
+      # - name: Upload `.serverless` state to S3
+      #   run: aws s3 sync .serverless s3://sls-state/${{ steps.extract.outputs.repo }}/${{ steps.extract.outputs.stage }}/.serverless --delete
