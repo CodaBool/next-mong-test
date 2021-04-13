@@ -10,7 +10,7 @@ jobs:
 
       - name: Extract Pipline Vars 
         run: |
-          echo "##[set-output name=branch;]${GITHUB_REF#refs/heads/}"
+          echo "##[set-output name=stage;]${GITHUB_REF#refs/heads/}"
           echo "##[set-output name=repo;]${GITHUB_REPOSITORY#CodaBool/}"
         id: extract # ${{ steps.extract.outputs.stage }}
         
