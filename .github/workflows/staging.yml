@@ -21,8 +21,12 @@ jobs:
       - name: Print
         shell: bash
         run: |
-          echo ${branch}
-          echo ${repo}
+          echo "1"${GITHUB_REPOSITORY#CodaBool/}
+          echo "2"${GITHUB_REF#refs/heads/}"
+          echo "3"${{env.var1}}
+          echo "4"${{env.var2}}
+          echo "5"${env.var1}
+          echo "6"${env.var2}
         env:
           var1: ${{ steps.branch.outputs.branch }}
           var2: ${{ steps.repo.outputs.repo }}
