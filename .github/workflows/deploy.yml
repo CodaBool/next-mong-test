@@ -34,12 +34,8 @@ jobs:
       - name: Download `.serverless` state from S3
         run: aws s3 sync s3://${{ steps.extract.outputs.repo }}/${{ steps.extract.outputs.stage }}/.serverless .serverless --delete 
 
-      # - name: Deploy to AWS
-      #   run: npx serverless
-      #   env:
-      #     TEST_ENV: ${{ secrets.TEST_ENV }}
-      #     MONGODB_URI: ${{ secrets.MONGODB_URI }}
-      #     STAGE: ${{ steps.extract.outputs.stage }}
+      - name: Deploy to AWS
+        run: npx serverless
 
-      # - name: Upload `.serverless` state to S3
-      #   run: aws s3 sync .serverless s3://${{ steps.extract.outputs.repo }}/${{ steps.extract.outputs.stage }}/.serverless --delete
+      - name: Upload `.serverless` state to S3
+        run: aws s3 sync .serverless s3://${{ steps.extract.outputs.repo }}/${{ steps.extract.outputs.stage }}/.serverless --delete

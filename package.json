@@ -4,8 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
+    "dev": "cross-env NEXT_PUBLIC_STAGE=dev next dev",
+    "build": "cross-env NEXT_PUBLIC_STAGE=dev next build",
+    "build:dev": "cross-env NEXT_PUBLIC_STAGE=dev next build",
+    "build:prod": "cross-env NEXT_PUBLIC_STAGE=prod next build",
     "start": "next start",
     "export": "next export",
     "deploy": "npm run build && npm run export && aws s3 sync out s3://my-nextjs-bucket-test-1"
@@ -25,5 +27,8 @@
     "react-dom": "^17.0.2",
     "react-hook-form": "^7.0.5",
     "timeago.js": "^4.0.2"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.3"
   }
 }

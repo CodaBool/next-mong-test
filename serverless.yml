@@ -1,24 +1,22 @@
-stage: ${env.STAGE}
+stage: ${env.NEXT_PUBLIC_STAGE}
+name: next-mon
+
 staging-your-site-name:
   component: '@sls-next/serverless-component@1.18.0'
   inputs:
     memory: 128
     bucketRegion: us-east-1
-    bucketName: codabool-stage-test-1
+    bucketName: ${name}-${stage}
     name: 
-      defaultLambda: 
-        - "${stage}-a"
-        - defaut
-      apiLambda:
-        - "${stage}-a"
-        - api
+      defaultLambda: ${name}-${stage}-default
+      apiLambda: ${name}-${stage}-api
     # domain: ['staging-your-site-name', 'a-domain']
-    domain:
-      - "${stage}-test"
-      - codadash.com
+    # domain:
+    #   - "${stage}-test"
+    #   - codadash.com
     publicDirectoryCache: false
+    useServerlessTraceTarget: true
     build:
       env:
         MONGODB_URI: ${env.MONGODB_URI}
-        TEST_ENV: ${env.TEST_ENV}
-        STAGE: ${env.STAGE}
+        NEXT_PUBLIC_STAGE: ${env.NEXT_PUBLIC_STAGE}
