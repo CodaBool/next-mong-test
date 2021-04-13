@@ -7,10 +7,10 @@ staging-your-site-name:
     bucketName: codabool-stage-test-1
     name: 
       defaultLambda: 
-        - "${stage}-"
+        - "${stage}-a"
         - defaut
       apiLambda:
-        - "${stage}-"
+        - "${stage}-a"
         - api
     # domain: ['staging-your-site-name', 'a-domain']
     domain:
