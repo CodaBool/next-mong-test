@@ -3,6 +3,7 @@ import { User } from '../../models'
 
 export default async (req, res) => {
   try {
+    console.log('TEST_ENV =', process.env.TEST_ENV)
     console.log('ENV =', process.env.MONGODB_URI)
     await dbConnect()
     let resp = []

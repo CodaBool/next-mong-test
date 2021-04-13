@@ -11,6 +11,7 @@ out/
 
 # production
 build/
+.serverless_nextjs/
 
 # local env files
 .env
