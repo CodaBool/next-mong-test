@@ -8,22 +8,21 @@ jobs:
     steps:
       - name: Extract branch name
         shell: bash
-        id: extract
-        env:
-          GITHUB_CONTEXT_FROM_DOCS: ${{ toJSON(github) }}
-          JOB_CONTEXT: ${{ toJSON(job) }}
         run: |
-          echo "GITHUB_CONTEXT_FROM_DOCS = "$GITHUB_CONTEXT_FROM_DOCS
-          echo "JOB_CONTEXT = "$JOB_CONTEXT
-
+          echo "##[set-output name=stage;]$(echo ${GITHUB_REF#refs/heads/})"
+          echo "GITHUB_REF = "${GITHUB_REF}
+          echo "REPO = "${REPO}
+        id: extract
+        env: 
+          REPO: ${{ github.event.repository.name }}
       - uses: actions/checkout@v2
 
-      - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: us-east-1
+      # - name: Configure AWS Credentials
+      #   uses: aws-actions/configure-aws-credentials@v1
+      #   with:
+      #     aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      #     aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      #     aws-region: us-east-1
 
       # - uses: actions/setup-node@v2-beta
       #   with:
