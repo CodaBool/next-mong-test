@@ -1,7 +1,7 @@
 name: Deploy test-1
 on:
   push:
-    branches: [main]
+    branches: [dev]
 jobs:
   deploy-staging:
     runs-on: ubuntu-latest
