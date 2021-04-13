@@ -12,12 +12,12 @@ jobs:
         run: |
           echo "##[set-output name=stage;]$(echo ${GITHUB_REF#refs/heads/})"
           echo "${stage}"
-          echo "GITHUB_REPOSITORY = ${{ env.GITHUB_REPOSITORY }}"
-          echo "GITHUB_WORKFLOW = ${{ env.GITHUB_WORKFLOW }}"
-          echo "GITHUB_JOB = ${{ env.GITHUB_JOB }}"
-          echo "GITHUB_ACTOR = ${{ env.GITHUB_ACTOR }}"
-          echo "GITHUB_EVENT_NAME = ${{ env.GITHUB_EVENT_NAME }}"
-          echo "GITHUB_EVENT_PATH = ${{ env.GITHUB_EVENT_PATH }}"
+          echo "GITHUB_REPOSITORY = "${{ env.GITHUB_REPOSITORY }}
+          echo "GITHUB_WORKFLOW = "${{ env.GITHUB_WORKFLOW }}
+          echo "GITHUB_JOB = "${{ env.GITHUB_JOB }}
+          echo "GITHUB_ACTOR = "${{ env.GITHUB_ACTOR }}
+          echo "GITHUB_EVENT_NAME = "${{ env.GITHUB_EVENT_NAME }}
+          echo "GITHUB_EVENT_PATH = "${{ env.GITHUB_EVENT_PATH }}
 
       - uses: actions/checkout@v2
 
@@ -28,25 +28,25 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
 
-      - uses: actions/setup-node@v2-beta
-        with:
-          node-version: '12'
+      # - uses: actions/setup-node@v2-beta
+      #   with:
+      #     node-version: '12'
 
-      - name: Install dependencies
-        run: npm ci
+      # - name: Install dependencies
+      #   run: npm ci
 
-      - name: Serverless AWS authentication
-        run: npx serverless --component=serverless-next config credentials --provider aws --key ${{ secrets.AWS_ACCESS_KEY_ID }} --secret ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      # - name: Serverless AWS authentication
+      #   run: npx serverless --component=serverless-next config credentials --provider aws --key ${{ secrets.AWS_ACCESS_KEY_ID }} --secret ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
-      - name: Download `.serverless` state from S3
-        run: aws s3 sync s3://${{ env.GITHUB_REPOSITORY }}/${{ steps.extract.outputs.stage }}/.serverless .serverless --delete 
+      # - name: Download `.serverless` state from S3
+      #   run: aws s3 sync s3://${{ env.GITHUB_REPOSITORY }}/${{ steps.extract.outputs.stage }}/.serverless .serverless --delete 
 
-      - name: Deploy to AWS
-        run: npx serverless
-        env:
-          TEST_ENV: ${{ secrets.TEST_ENV }}
-          MONGODB_URI: ${{ secrets.MONGODB_URI }}
-          STAGE: ${{ steps.extract.outputs.stage }}
+      # - name: Deploy to AWS
+      #   run: npx serverless
+      #   env:
+      #     TEST_ENV: ${{ secrets.TEST_ENV }}
+      #     MONGODB_URI: ${{ secrets.MONGODB_URI }}
+      #     STAGE: ${{ steps.extract.outputs.stage }}
 
-      - name: Upload `.serverless` state to S3
-        run: aws s3 sync .serverless s3://${{ env.GITHUB_REPOSITORY }}/${{ steps.extract.outputs.stage }}/.serverless --delete
+      # - name: Upload `.serverless` state to S3
+      #   run: aws s3 sync .serverless s3://${{ env.GITHUB_REPOSITORY }}/${{ steps.extract.outputs.stage }}/.serverless --delete
