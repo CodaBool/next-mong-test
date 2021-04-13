@@ -9,19 +9,24 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Extract Branch
-        run: echo "##[set-output name=branch;]${GITHUB_REF#refs/heads/}"
-        id: branch
+        run: |
+          echo "##[set-output name=branch;]${GITHUB_REF#refs/heads/}"
+          echo "##[set-output name=repo;]${GITHUB_REPOSITORY#CodaBool/}"
+        id: extract
 
-      - name: Extract Repo
-        run: echo "##[set-output name=repo;]${GITHUB_REPOSITORY#CodaBool/}"
-        id: repo
+      # - name: Extract Repo
+      #   run: echo "##[set-output name=repo;]${GITHUB_REPOSITORY#CodaBool/}"
+      #   id: repo
 
       - name: Print
         run: |
+          echo "raw = "${GITHUB_REPOSITORY#CodaBool/}
           echo "branch = "${{ env.branch }}
           echo "repo = "${{ env.repo }}
           echo "test1 = "${{ env.test1 }}
           echo "test2 = "${{ env.test2 }}
+          echo "efficient1 = "${{ steps.extract.outputs.branch }}
+          echo "efficient2 = "${{ steps.extract.outputs.repo }}
         env:
           branch: ${{ steps.branch.outputs.branch }}
           repo: ${{ steps.repo.outputs.repo }}
