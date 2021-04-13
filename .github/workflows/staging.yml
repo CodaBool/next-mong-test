@@ -12,11 +12,12 @@ jobs:
         shell: bash
         run: |
           echo "##[set-output name=branch;]${GITHUB_REF#refs/heads/}"
-          # echo "##[set-output name=repo;]${GITHUB_REF#refs/heads/}"
-          echo "GITHUB_EVENT_NAME = "${GITHUB_EVENT_NAME}
-          echo "GITHUB_EVENT_PATH = "${GITHUB_EVENT_PATH}
+          echo "##[set-output name=repo;]${{ env.REPO }}"
           echo "GITHUB_REPOSITORY = "${GITHUB_REPOSITORY}
-          echo "GITHUB_from_env = "${{ env.REPO }}
+          echo "##[set-output name=repo1;]${GITHUB_REPOSITORY#CodaBool/}"
+          echo $branch
+          echo "repo = "$repo
+          echo "repo1 = "$repo1
         id: extract
         env: 
           REPO: ${{ github.event.repository.name }}
