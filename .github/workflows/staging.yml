@@ -9,6 +9,17 @@ jobs:
       - name: Extract branch name
         shell: bash
         id: extract
+        env:
+          GITHUB_REPOSITORY: ${{ env.GITHUB_REPOSITORY }}
+          GITHUB_WORKFLOW: ${{ env.GITHUB_REPOSITORY }}
+          GITHUB_JOB: ${{ env.GITHUB_REPOSITORY }}
+          GITHUB_ACTOR: ${{ env.GITHUB_REPOSITORY }}
+          GITHUB_EVENT_NAME: ${{ env.GITHUB_REPOSITORY }}
+          GITHUB_EVENT_PATH: ${{ env.GITHUB_REPOSITORY }}
+          GITHUB_CONTEXT2: ${{ env }}
+          GITHUB_CONTEXT3: ${{ env.GITHUB_CONTEXT }}
+          GITHUB_CONTEXT_FROM_DOCS: ${{ toJSON(github) }}
+          JOB_CONTEXT: ${{ toJSON(job) }}
         run: |
           echo "##[set-output name=stage;]$(echo ${GITHUB_REF#refs/heads/})"
           echo "${stage}"
@@ -18,6 +29,10 @@ jobs:
           echo "GITHUB_ACTOR = "${{ env.GITHUB_ACTOR }}
           echo "GITHUB_EVENT_NAME = "${{ env.GITHUB_EVENT_NAME }}
           echo "GITHUB_EVENT_PATH = "${{ env.GITHUB_EVENT_PATH }}
+          echo "GITHUB_CONTEXT2 = "$GITHUB_CONTEXT2
+          echo "GITHUB_CONTEXT3 = "$GITHUB_CONTEXT3
+          echo "GITHUB_CONTEXT_FROM_DOCS = "$GITHUB_CONTEXT_FROM_DOCS
+          echo "JOB_CONTEXT = "$JOB_CONTEXT
 
       - uses: actions/checkout@v2
 
