@@ -1,22 +1,14 @@
 stage: ${env.NEXT_PUBLIC_STAGE}
-name: next-mon
+name: delete-me
 
-staging-your-site-name:
-  component: '@sls-next/serverless-component@1.18.0'
+domain:
+  dev: dev.codattest.com
+  prod: codattest.com
+
+website:
+  component: '@serverless/website'
   inputs:
-    memory: 128
-    bucketRegion: us-east-1
-    bucketName: ${name}-${stage}
-    name: 
-      defaultLambda: ${name}-${stage}-default
-      apiLambda: ${name}-${stage}-api
-    # domain: ['staging-your-site-name', 'a-domain']
-    # domain:
-    #   - "${stage}-test"
-    #   - codadash.com
-    publicDirectoryCache: false
-    useServerlessTraceTarget: true
-    build:
-      env:
-        MONGODB_URI: ${env.MONGODB_URI}
-        NEXT_PUBLIC_STAGE: ${env.NEXT_PUBLIC_STAGE}
+    bucketName: codabool-please-delete-${domain.${stage}}
+    code:
+      src: ./out
+      hook: npm run deploy
